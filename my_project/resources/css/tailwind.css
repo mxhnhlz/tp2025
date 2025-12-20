@@ -1,0 +1,9 @@
+/* Tailwind base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Кастомные стили */
+:root {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui;
+}
