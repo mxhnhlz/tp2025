@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -45,4 +46,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievements')->withTimestamps();
+    }
+
+    public function userTaskProgress()
+    {
+        return $this->hasMany(UserTaskProgress::class);
+    }
+
 }

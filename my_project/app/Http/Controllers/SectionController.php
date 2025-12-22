@@ -10,9 +10,19 @@ class SectionController extends Controller
     // Список всех разделов
     public function index()
     {
-        $sections = Section::all();
+        $sections = Section::with(['tasks', 'tasks.userProgress' => function($q) {
+            $q->where('user_id', auth()->id());
+        }])->get();
+
         return view('sections.index', compact('sections'));
     }
+
+    public function tasksJson($id)
+    {
+        $tasks = Section::findOrFail($id)->tasks()->get(['id', 'title', 'description', 'difficulty', 'points']);
+        return response()->json($tasks);
+    }
+
 
     // Страница конкретного раздела
     public function show(Section $section)

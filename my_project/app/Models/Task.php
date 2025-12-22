@@ -25,4 +25,10 @@ class Task extends Model
     {
         return $this->hasOne(Theory::class);
     }
+
+    public function userProgress()
+    {
+        return $this->hasMany(UserTaskProgress::class);
+    }
+
 }
