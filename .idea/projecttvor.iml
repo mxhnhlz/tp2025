@@ -130,5 +130,7 @@
     <orderEntry type="library" name="quill" level="application" />
     <orderEntry type="library" name="lucide" level="application" />
     <orderEntry type="library" name="alpinejs" level="application" />
+    <orderEntry type="library" name="lucide" level="application" />
+    <orderEntry type="library" name="alpinejs" level="application" />
   </component>
 </module>
