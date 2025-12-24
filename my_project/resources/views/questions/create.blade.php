@@ -75,10 +75,10 @@
             div.classList.add('mb-2');
 
             div.innerHTML = `
-        <input type="${isCheckbox ? 'checkbox' : (isRadio ? 'radio' : 'hidden')}" name="correct[]" value="${answerCount}">
-        <input type="text" name="answers[]" class="form-control d-inline-block w-75" placeholder="Текст ответа" required>
-        <button type="button" class="btn btn-danger btn-sm removeAnswer">Удалить</button>
-    `;
+                <input type="${isCheckbox ? 'checkbox' : (isRadio ? 'radio' : 'hidden')}" name="correct[]" value="${answerCount}">
+                <input type="text" name="answers[]" class="form-control d-inline-block w-75" placeholder="Текст ответа" required>
+                <button type="button" class="btn btn-danger btn-sm removeAnswer">Удалить</button>
+            `;
             answersContainer.appendChild(div);
 
             div.querySelector('.removeAnswer').addEventListener('click', () => {

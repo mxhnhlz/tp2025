@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('level')->default(1);
             $table->integer('xp')->default(0);
-
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -40,17 +39,8 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        Schema::create('user_task_progress', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('task_id')->constrained()->cascadeOnDelete();
-            $table->integer('completed')->default(0);
-            $table->integer('total')->default(0);
-            $table->timestamps();
-
-            $table->unique(['user_id', 'task_id']);
-        });
-
+        // УБРАТЬ создание user_task_progress отсюда!
+        // Эту таблицу создаем отдельной миграцией
     }
 
     /**

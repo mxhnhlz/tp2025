@@ -116,9 +116,8 @@
 
                         @auth
                             <a href="{{ route('dashboard') }}"
-                               class="ml-4 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-medium rounded-lg
-                                      hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300">
-                                Кабинет
+                               class="px-4 py-2.5 rounded-lg text-gray-300 hover:text-cyan-400 hover:bg-white/5 transition-all duration-200">
+                                Профиль
                             </a>
                         @else
                             <a href="{{ route('register') }}"
@@ -214,9 +213,6 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($sections as $section)
                         @php
-                            $totalTasks = $section->tasks->count();
-                            $completedTasks = $section->tasks->filter(fn($task) => $task->userProgress->count() > 0)->count();
-                            $progress = $totalTasks ? ($completedTasks / $totalTasks) * 100 : 0;
                             $colorIndex = $loop->index % 6;
                             $colors = [
                                 ['from-cyan-500', 'to-cyan-600', 'text-cyan-400', 'border-cyan-500/30', 'bg-cyan-500/10'],
@@ -226,7 +222,12 @@
                                 ['from-orange-500', 'to-orange-600', 'text-orange-400', 'border-orange-500/30', 'bg-orange-500/10'],
                                 ['from-pink-500', 'to-pink-600', 'text-pink-400', 'border-pink-500/30', 'bg-pink-500/10']
                             ];
-                            $color = $colors[$colorIndex];
+                            $color = $colors[$colorIndex]; // Добавьте эту строку
+
+                            // Используем предварительно рассчитанные значения
+                            $totalTasks = $section->total_tasks;
+                            $completedTasks = $section->completed_tasks;
+                            $progress = $section->progress_percentage;
                         @endphp
 
                         <div
@@ -243,13 +244,13 @@
 
                             <!-- Карточка раздела -->
                             <div class="relative h-full p-6 bg-slate-900/60 backdrop-blur-sm rounded-xl border border-white/10
-                                        hover:border-{{ explode('-', $color[2])[1] }}-500/50 transition-all duration-300
-                                        transform group-hover:-translate-y-1">
+                    hover:border-{{ explode('-', $color[2])[1] }}-500/50 transition-all duration-300
+                    transform group-hover:-translate-y-1">
 
                                 <!-- Иконка -->
                                 <div class="mb-5">
                                     <div class="inline-flex p-3 rounded-lg {{ $color[4] }} border {{ $color[3] }}
-                                                group-hover:scale-110 transition-transform duration-300">
+                            group-hover:scale-110 transition-transform duration-300">
                                         <i data-lucide="{{ $section->icon ?? 'book-open' }}" class="w-6 h-6 {{ $color[2] }}"></i>
                                     </div>
                                 </div>
@@ -272,9 +273,8 @@
                                         <div class="absolute inset-0 bg-gradient-to-r {{ $color[0] }} {{ $color[1] }} opacity-20"></div>
                                         <div
                                             class="absolute top-0 left-0 h-full bg-gradient-to-r {{ $color[0] }} {{ $color[1] }}
-                                                   rounded-full transition-all duration-700 ease-out"
-                                            :style="`width: ${hover ? $progress + 5 : $progress}%`"
-                                            x-bind:style="`width: ${hover ? {{ $progress }} + 5 : {{ $progress }}}%`"
+                               rounded-full transition-all duration-700 ease-out"
+                                            :style="`width: ${hover ? {{ $progress }} + 5 : {{ $progress }}}%`"
                                         ></div>
                                     </div>
                                     <div class="text-xs text-gray-500 mt-2">
@@ -286,12 +286,12 @@
                                 <button
                                     @click="openModal({{ $section->id }})"
                                     class="w-full py-3 {{ $color[4] }} {{ $color[3] }} rounded-lg font-medium
-                                           group-hover:bg-gradient-to-r group-hover:{{ $color[0] }} group-hover:{{ $color[1] }}
-                                           group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+                       group-hover:bg-gradient-to-r group-hover:{{ $color[0] }} group-hover:{{ $color[1] }}
+                       group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
                                 >
-                                    <span :class="hover ? 'text-white' : '{{ $color[2] }}'" class="transition-colors duration-300">
-                                        {{ $completedTasks > 0 ? 'Продолжить' : 'Начать обучение' }}
-                                    </span>
+                <span :class="hover ? 'text-white' : '{{ $color[2] }}'" class="transition-colors duration-300">
+                    {{ $completedTasks > 0 ? 'Продолжить' : 'Начать обучение' }}
+                </span>
                                     <i data-lucide="chevron-right"
                                        :class="hover ? 'translate-x-1 text-white' : '{{ $color[2] }}'"
                                        class="w-4 h-4 transition-all duration-300"></i>

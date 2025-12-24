@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('hint')->nullable();
             $table->timestamps();
             $table->integer('order')->default(1);
-            $table->integer('points');
+            $table->integer('points')->nullable();
 
             $table->index('task_id');
             $table->index('type');

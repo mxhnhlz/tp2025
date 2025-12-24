@@ -49,12 +49,24 @@ class User extends Authenticatable
 
     public function achievements()
     {
-        return $this->belongsToMany(Achievement::class, 'user_achievements')->withTimestamps();
+        return $this->belongsToMany(Achievement::class, 'user_achievements')
+            ->withTimestamps()
+            ->withPivot('unlocked_at');
+    }
+
+    public function taskProgresses()
+    {
+        return $this->hasMany(UserTaskProgress::class);
+    }
+
+    public function hasAchievement($achievementSlug)
+    {
+        return $this->achievements()->where('slug', $achievementSlug)->exists();
     }
 
     public function userTaskProgress()
     {
         return $this->hasMany(UserTaskProgress::class);
     }
-
+    
 }

@@ -98,74 +98,116 @@
 
     <!-- HEADER -->
     <header
+        x-data="{
+        isMenuOpen: false,
+        scrolled: false,
+        init() {
+            window.addEventListener('scroll', () => {
+                this.scrolled = window.scrollY > 50;
+            });
+        }
+    }"
         :class="scrolled || isMenuOpen ? 'bg-slate-900/80 backdrop-blur-xl shadow-2xl shadow-cyan-500/10' : 'bg-slate-900/20 backdrop-blur-md'"
         class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/5"
     >
-        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3 group cursor-pointer">
+        <nav class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <!-- Логотип -->
+            <a href="{{ url('/') }}" class="flex items-center gap-3 group cursor-pointer">
                 <div class="relative">
                     <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                    <i data-lucide="shield" class="w-8 h-8 text-cyan-400 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    <i data-lucide="shield" class="w-7 h-7 sm:w-8 sm:h-8 text-cyan-400 relative z-10 group-hover:scale-110 transition-transform"></i>
                 </div>
-                <span class="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent bg-size-200 animate-gradient">
-                        CyberSafe Trainer
-                    </span>
-            </div>
+                <span class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent bg-size-200 animate-gradient">
+                CyberSafe Trainer
+            </span>
+            </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex gap-6 items-center">
-                <a href="#about"
-                   class="relative px-4 py-2 text-white/80 hover:text-cyan-400 transition-all group">
-                    <span class="relative z-10">О проекте</span>
+            <div class="hidden md:flex gap-4 sm:gap-6 items-center">
+                <a href="#"
+                   class="relative px-3 sm:px-4 py-2 text-white/80 hover:text-cyan-400 transition-all group">
+                    <span class="relative z-10 text-sm sm:text-base">О проекте</span>
                     <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
                 </a>
                 <a href="{{ route('sections.index') }}"
-                   class="relative px-4 py-2 text-white/80 hover:text-cyan-400 transition-all group">
-                    <span class="relative z-10">Разделы</span>
+                   class="relative px-3 sm:px-4 py-2 text-white/80 hover:text-cyan-400 transition-all group">
+                    <span class="relative z-10 text-sm sm:text-base">Разделы</span>
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
                 </a>
                 <a href="#stats"
-                   class="relative px-4 py-2 text-white/80 hover:text-cyan-400 transition-all group">
-                    <span class="relative z-10">Статистика</span>
+                   class="relative px-3 sm:px-4 py-2 text-white/80 hover:text-cyan-400 transition-all group">
+                    <span class="relative z-10 text-sm sm:text-base">Статистика</span>
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-purple-500/0 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
                 </a>
 
-                <div class="flex items-center gap-3 ml-4">
-                    @auth
-                        <a href="{{ route('dashboard') }}"
-                           class="relative px-6 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full font-semibold text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all group overflow-hidden">
-                                <span class="relative z-10 flex items-center gap-2">
-                                    <i data-lucide="user" class="w-4 h-4"></i>
-                                    Личный кабинет
-                                </span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                        </a>
-                    @else
-                        <a href="{{ route('register') }}"
-                           class="relative px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/25 transition-all group overflow-hidden">
-                            <span class="relative z-10">Регистрация</span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                        </a>
-                    @endauth
+                <!-- Аватар профиля (для авторизованных) -->
+                @auth
+                    <div class="relative group ml-2 sm:ml-4">
+                        <!-- Аватар пользователя -->
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm sm:text-lg cursor-pointer border-2 border-transparent group-hover:border-cyan-400/50 transition-all duration-300">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>
 
-                    @auth
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit"
-                                    class="relative px-6 py-2 bg-gradient-to-r from-red-500 to-red-600 rounded-full font-semibold text-white hover:shadow-lg hover:shadow-red-500/25 transition-all group overflow-hidden">
-                                    <span class="relative z-10 flex items-center gap-2">
+                        <!-- Выпадающее меню профиля -->
+                        <div class="absolute right-0 mt-2 w-56 bg-slate-800/90 backdrop-blur-xl rounded-xl shadow-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <!-- Информация о пользователе -->
+                            <div class="p-4 border-b border-white/10">
+                                <p class="text-white font-semibold truncate text-sm">{{ auth()->user()->name }}</p>
+                                <p class="text-gray-400 text-xs truncate">{{ auth()->user()->email }}</p>
+                                <div class="mt-2 flex items-center justify-between">
+                                    <div class="px-2 py-1 bg-emerald-500/10 rounded text-xs text-emerald-400 border border-emerald-500/20">
+                                        Уровень {{ auth()->user()->level }}
+                                    </div>
+                                    <div class="text-xs text-gray-500">
+                                        {{ auth()->user()->xp ?? 0 }} XP
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ссылки профиля -->
+                            <div class="p-2">
+                                <a href="{{ route('dashboard') }}"
+                                   class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:text-cyan-400 hover:bg-white/5 transition-all duration-200">
+                                    <i data-lucide="user" class="w-4 h-4"></i>
+                                    <span class="text-sm">Личный кабинет</span>
+                                </a>
+                                <a href="{{ route('achievements.index') }}"
+                                   class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-all duration-200">
+                                    <i data-lucide="trophy" class="w-4 h-4"></i>
+                                    <span class="text-sm">Достижения</span>
+                                </a>
+                                <a href="{{ route('sections.index') }}"
+                                   class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-gray-300 hover:text-blue-400 hover:bg-white/5 transition-all duration-200">
+                                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                                    <span class="text-sm">Обучение</span>
+                                </a>
+                            </div>
+
+                            <!-- Выход -->
+                            <div class="p-2 border-t border-white/10">
+                                <form method="POST" action="{{ route('logout') }}" id="logout-form-desktop">
+                                    @csrf
+                                    <button type="submit"
+                                            class="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200">
                                         <i data-lucide="log-out" class="w-4 h-4"></i>
-                                        Выйти
-                                    </span>
-                                <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                            </button>
-                        </form>
-                    @endauth
-                </div>
+                                        <span class="text-sm">Выйти из аккаунта</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <!-- Кнопка регистрации/входа для неавторизованных -->
+                    <a href="{{ route('register') }}"
+                       class="relative px-4 sm:px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/25 transition-all group overflow-hidden ml-2 sm:ml-4">
+                        <span class="relative z-10 text-sm sm:text-base">Регистрация</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </a>
+                @endauth
             </div>
 
             <!-- Mobile button -->
-            <button class="md:hidden relative w-10 h-10" @click="isMenuOpen = !isMenuOpen">
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden relative w-10 h-10 group">
                 <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div class="relative w-full h-full flex items-center justify-center">
                     <i x-show="!isMenuOpen" data-lucide="menu" class="w-6 h-6 text-white"></i>
@@ -182,34 +224,88 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 -translate-y-4"
-             class="md:hidden px-6 pb-6 space-y-3 bg-slate-900/90 backdrop-blur-xl border-t border-white/10">
-            <a href="#about" class="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">О проекте</a>
-            <a href="{{ route('sections.index') }}" class="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">Разделы</a>
-            <a href="#stats" class="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">Статистика</a>
+             class="md:hidden px-4 sm:px-6 pb-6 space-y-2 bg-slate-900/90 backdrop-blur-xl border-t border-white/10">
 
-            <div class="pt-3 space-y-3">
-                @auth
-                    <a href="{{ route('dashboard') }}"
-                       class="block px-4 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full font-semibold text-white text-center">
-                        Личный кабинет
-                    </a>
-                @else
+            <!-- Навигация -->
+            <a href="#about"
+               class="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all flex items-center gap-3">
+                <i data-lucide="info" class="w-4 h-4 text-cyan-400"></i>
+                О проекте
+            </a>
+            <a href="{{ route('sections.index') }}"
+               class="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all flex items-center gap-3">
+                <i data-lucide="folder-open" class="w-4 h-4 text-blue-400"></i>
+                Разделы
+            </a>
+            <a href="#stats"
+               class="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all flex items-center gap-3">
+                <i data-lucide="bar-chart" class="w-4 h-4 text-purple-400"></i>
+                Статистика
+            </a>
+
+            <!-- Профиль пользователя (если авторизован) -->
+            @auth
+                <div class="pt-3 border-t border-white/10">
+                    <div class="px-4 py-3">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-xl">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white font-semibold text-sm">{{ auth()->user()->name }}</p>
+                                <p class="text-gray-400 text-xs">{{ auth()->user()->email }}</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                <span class="px-2 py-0.5 bg-emerald-500/10 rounded text-xs text-emerald-400 border border-emerald-500/20">
+                                    Уровень {{ auth()->user()->level }}
+                                </span>
+                                    <span class="text-xs text-gray-500">
+                                    {{ auth()->user()->xp ?? 0 }} XP
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <a href="{{ route('dashboard') }}"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-cyan-400 hover:bg-white/5 transition-all">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                                <span class="text-sm">Личный кабинет</span>
+                            </a>
+                            <a href="{{ route('achievements.index') }}"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-yellow-400 hover:bg-white/5 transition-all">
+                                <i data-lucide="trophy" class="w-4 h-4"></i>
+                                <span class="text-sm">Достижения</span>
+                            </a>
+                            <a href="{{ route('sections.index') }}"
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-blue-400 hover:bg-white/5 transition-all">
+                                <i data-lucide="book-open" class="w-4 h-4"></i>
+                                <span class="text-sm">Обучение</span>
+                            </a>
+                        </div>
+
+                        <div class="mt-3 pt-3 border-t border-white/10">
+                            <form method="POST" action="{{ route('logout') }}" id="logout-form-mobile">
+                                @csrf
+                                <button type="submit"
+                                        class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-red-500/25 transition-all">
+                                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                                    <span class="text-sm">Выйти из аккаунта</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <!-- Кнопка регистрации для неавторизованных -->
+                <div class="pt-3 border-t border-white/10">
                     <a href="{{ route('register') }}"
-                       class="block px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-white text-center">
-                        Регистрация
+                       class="flex items-center justify-center gap-3 px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600
+                          text-white font-medium rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+                        <i data-lucide="log-in" class="w-5 h-5"></i>
+                        Войти / Регистрация
                     </a>
-                @endauth
-
-                @auth
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit"
-                                class="w-full px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 rounded-full font-semibold text-white">
-                            Выйти
-                        </button>
-                    </form>
-                @endauth
-            </div>
+                </div>
+            @endauth
         </div>
     </header>
 
@@ -263,13 +359,7 @@
                     </a>
                 @endauth
 
-                <a href="#about"
-                   class="group px-10 py-4 rounded-2xl border border-cyan-500/30 text-white hover:bg-cyan-500/10 hover:border-cyan-400/50 transition-all duration-300">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="play-circle" class="w-5 h-5"></i>
-                            Посмотреть демо
-                        </span>
-                </a>
+
             </div>
 
             <!-- Hero Stats -->
@@ -345,13 +435,13 @@
                             <li class="flex items-start gap-3 group/item">
                                 <i data-lucide="trending-up" class="w-5 h-5 text-emerald-400 mt-1 group-hover/item:rotate-12 transition-transform"></i>
                                 <span class="text-gray-300 group-hover/item:text-white transition-colors">
-                                        <strong class="text-emerald-300">Детальная аналитика</strong> — отслеживание прогресса и рекомендации
+                                        <strong class="text-emerald-300">Детальная аналитика</strong> — отслеживание прогресса
                                     </span>
                             </li>
                             <li class="flex items-start gap-3 group/item">
                                 <i data-lucide="gamepad-2" class="w-5 h-5 text-purple-400 mt-1 group-hover/item:scale-110 transition-transform"></i>
                                 <span class="text-gray-300 group-hover/item:text-white transition-colors">
-                                        <strong class="text-purple-300">Геймификация</strong> — достижения, рейтинги и соревнования
+                                        <strong class="text-purple-300">Геймификация</strong> — достижения
                                     </span>
                             </li>
                         </ul>
@@ -559,7 +649,7 @@
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 <!-- Статистика 1 -->
                 <div class="group relative">
                     <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
@@ -640,19 +730,7 @@
                     </div>
                 </div>
 
-                <!-- Статистика 4 -->
-                <div class="group relative">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
-                    <div class="relative p-8 bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-white/10 group-hover:border-orange-500/50 transition-all duration-300 text-center">
-                        <div class="text-5xl font-bold text-orange-400 mb-4">99%</div>
-                        <div class="text-gray-300 font-semibold">Удовлетворенность пользователей</div>
-                        <div class="mt-4 flex items-center justify-center gap-1">
-                            @for($i = 1; $i <= 5; $i++)
-                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <!-- CTA в конце -->
@@ -661,7 +739,7 @@
                     <div class="bg-slate-900 rounded-xl p-8">
                         <h3 class="text-3xl font-bold text-white mb-4">Готовы начать?</h3>
                         <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
-                            Присоединяйтесь к тысячам пользователей, которые уже защитили себя в цифровом мире
+                            Присоединяйтесь к пользователям, которые уже защитили себя в цифровом мире!
                         </p>
                         @auth
                             <a href="{{ route('sections.index') }}"
@@ -706,8 +784,7 @@
                     <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">О проекте</a>
                     <a href="{{ route('sections.index') }}" class="text-gray-400 hover:text-blue-400 transition-colors">Разделы</a>
                     <a href="#stats" class="text-gray-400 hover:text-purple-400 transition-colors">Статистика</a>
-                    <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors">Блог</a>
-                    <a href="#" class="text-gray-400 hover:text-orange-400 transition-colors">Контакты</a>
+
                 </div>
 
 

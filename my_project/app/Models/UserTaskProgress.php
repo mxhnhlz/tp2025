@@ -15,6 +15,7 @@ class UserTaskProgress extends Model
         'task_id',
         'score',
         'completed_at',
+        'accuracy',
     ];
 
     public function user()

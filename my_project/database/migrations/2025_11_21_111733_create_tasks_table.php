@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
-            //связь с разделом
+            // связь с разделом
             $table->foreignId('section_id')
                 ->constrained('sections')
                 ->onDelete('cascade');
 
-            //основа
+            // основа
 
             $table->string('title');          // Название задания
             $table->string('slug')->unique(); // URL-идентификатор

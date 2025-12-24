@@ -9,9 +9,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Question extends Model
 {
-//    protected $fillable = ['task_id', 'content', 'type', 'hint'];
+    // Если используете fillable:
+    protected $fillable = [
+        'task_id',
+        'content',
+        'type',
+        'hint',
+        'order',
+        'points', // <- вот это ключевое
+    ];
 
-    protected $guarded = [];
+
 
     public function task(): BelongsTo
     {

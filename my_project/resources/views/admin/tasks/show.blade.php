@@ -16,7 +16,8 @@
                 <span class="px-2 py-1 bg-red-200 text-red-800 rounded-full text-xs">{{ ucfirst($task->difficulty) }}</span>
             @endif
         </p>
-        <p><strong>Баллы:</strong> {{ $task->points }}</p>
+        <p><strong>Баллы:</strong> {{ $task->total_points }}</p>
+
         <p><strong>Порядок:</strong> {{ $task->order }}</p>
 
         <div class="flex gap-3 mt-4">

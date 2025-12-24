@@ -1,32 +1,30 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TheoryController;
-use App\Http\Controllers\QuestionController;
-
+use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\Admin\AdminAnswerController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminQuestionController;
 use App\Http\Controllers\Admin\AdminSectionController;
 use App\Http\Controllers\Admin\AdminTaskController;
 use App\Http\Controllers\Admin\AdminTheoryController;
-use App\Http\Controllers\Admin\AdminQuestionController;
 use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\AdminAnswerController;
-
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TheoryController;
+use Illuminate\Support\Facades\Route;
 
 // Главная
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 
 // Пользовательские разделы, задачи, теории, вопросы
 Route::resource('sections', SectionController::class);
@@ -46,25 +44,20 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/cabinet', function () {
-        return view('auth.cabinet');
-    })->name('dashboard');
+    // Оставляем только ОДИН маршрут для кабинета
+    Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet');
+
+    // Если вам нужно также имя 'dashboard' для обратной совместимости
+    Route::get('/dashboard', [CabinetController::class, 'index'])->name('dashboard');
 
     Route::get('/sections', [SectionController::class, 'index'])->name('sections.index');
-
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
-
-    // Сохранение ответа пользователя
-    Route::post('/tasks/{task}/answer', [TaskController::class, 'storeAnswer'])->name('tasks.answer.store');
+    Route::post('/tasks/{task}/answer', [TaskController::class, 'storeAnswer'])->name('tasks.answer');
+    Route::post('/tasks/{task}/complete', [TaskController::class, 'completeTask'])->name('tasks.complete');
+    Route::get('/achievements', [AchievementController::class, 'index'])->name('achievements.index');
 });
 
 
-// Кабинет пользователя (только для авторизованных)
-Route::middleware('auth')->group(function () {
-    Route::get('/cabinet', function () {
-        return view('auth.cabinet'); // вместо dashboard
-    })->name('dashboard');
-});
 
 // Админка
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {

@@ -148,18 +148,7 @@
                                 >
                             </div>
 
-                            <!-- Запомнить меня -->
-                            <div class="flex items-center gap-2">
-                                <input
-                                    type="checkbox"
-                                    id="remember"
-                                    name="remember"
-                                    class="rounded border-white/20 bg-slate-900/50 text-cyan-500"
-                                >
-                                <label for="remember" class="text-gray-400 text-sm">
-                                    Запомнить меня
-                                </label>
-                            </div>
+
 
                             <!-- Кнопка входа -->
                             <button
@@ -197,20 +186,8 @@
                     </div>
                 </div>
 
-                <!-- Простая статистика -->
-                <div class="mt-6 p-4 rounded-lg bg-slate-800/40 border border-white/10 text-center">
-                    <div class="flex items-center justify-center gap-4">
-                        <div>
-                            <div class="text-cyan-400 font-bold">{{ $totalUsers ?? '100+' }}</div>
-                            <div class="text-gray-400 text-sm">студентов</div>
-                        </div>
-                        <div class="h-8 w-px bg-white/10"></div>
-                        <div>
-                            <div class="text-blue-400 font-bold">{{ $totalCompletedTasks ?? '500+' }}</div>
-                            <div class="text-gray-400 text-sm">заданий пройдено</div>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
         </main>
 

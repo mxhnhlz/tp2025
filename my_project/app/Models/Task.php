@@ -26,9 +26,15 @@ class Task extends Model
         return $this->hasOne(Theory::class);
     }
 
-    public function userProgress()
+    public function userTaskProgress()
     {
         return $this->hasMany(UserTaskProgress::class);
+    }
+    // Вычисляемое поле для суммы баллов
+    public function getTotalPointsAttribute(): int
+    {
+        // Суммируем поле points у всех связанных вопросов
+        return $this->questions()->sum('points');
     }
 
 }

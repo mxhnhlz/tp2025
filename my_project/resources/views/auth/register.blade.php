@@ -198,87 +198,18 @@
         </header>
 
         <!-- REGISTER FORM SECTION -->
-        <section class="min-h-screen flex items-center justify-center px-6 py-20">
-            <div class="container mx-auto max-w-5xl">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <!-- Левый блок с информацией -->
-                    <div class="relative">
-                        <!-- Анимированный фон для левого блока -->
-                        <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl blur opacity-20 animate-pulse"></div>
+        <section class="min-h-screen flex items-center justify-center px-4 sm:px-6 py-20">
+            <div class="container mx-auto max-w-md lg:max-w-lg">
+                <div class="grid lg:grid-cols-0 gap-1 items-center">
 
-                        <div class="relative p-8 lg:p-12 bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-white/10">
-                            <div class="mb-8">
-                                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 mb-6">
-                                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                                    <span class="text-cyan-300 font-semibold">Защищенная регистрация</span>
-                                </div>
-
-                                <h1 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-                                    Создайте
-                                    <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                                        безопасный аккаунт
-                                    </span>
-                                </h1>
-
-                                <p class="text-gray-300 text-lg mb-8 leading-relaxed">
-                                    Присоединяйтесь к сообществу CyberSafe Trainer и получите доступ к интерактивным курсам по кибербезопасности, персональной статистике и эксклюзивным материалам.
-                                </p>
-                            </div>
-
-                            <!-- Преимущества регистрации -->
-                            <div class="space-y-6">
-                                <div class="flex items-start gap-4 group">
-                                    <div class="flex-shrink-0 p-3 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 border border-cyan-500/30 group-hover:scale-110 transition-transform">
-                                        <i data-lucide="shield-check" class="w-6 h-6 text-cyan-400"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-white mb-2">Защита данных</h3>
-                                        <p class="text-gray-400">Все ваши данные шифруются по стандартам военного уровня</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start gap-4 group">
-                                    <div class="flex-shrink-0 p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 group-hover:scale-110 transition-transform">
-                                        <i data-lucide="zap" class="w-6 h-6 text-blue-400"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-white mb-2">Интерактивное обучение</h3>
-                                        <p class="text-gray-400">Практикуйтесь на реалистичных симуляциях кибератак</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start gap-4 group">
-                                    <div class="flex-shrink-0 p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/30 group-hover:scale-110 transition-transform">
-                                        <i data-lucide="trending-up" class="w-6 h-6 text-purple-400"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-white mb-2">Персональный прогресс</h3>
-                                        <p class="text-gray-400">Отслеживайте свои успехи и получайте рекомендации</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Статистика -->
-                            <div class="mt-10 p-6 rounded-xl bg-gradient-to-r from-slate-800/50 to-slate-900/50 border border-white/10">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <div class="text-3xl font-bold text-cyan-400">{{ $totalUsers ?? '10,000+' }}</div>
-                                        <div class="text-gray-400">Уже с нами</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-3xl font-bold text-emerald-400">24/7</div>
-                                        <div class="text-gray-400">Поддержка</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Правый блок с формой -->
                     <div>
+
                         <!-- Основная карточка формы -->
                         <div class="relative group">
                             <!-- Эффект свечения вокруг формы -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl blur opacity-20 animate-pulse"></div>
                             <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
 
                             <div class="relative p-8 lg:p-10 bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
@@ -449,30 +380,9 @@
                                         </div>
                                     </div>
 
-                                    <!-- Чекбокс согласия -->
-                                    <div class="flex items-start gap-3">
-                                        <input
-                                            type="checkbox"
-                                            id="terms"
-                                            name="terms"
-                                            required
-                                            class="mt-1 rounded border-white/20 bg-slate-800 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-slate-900"
-                                        >
-                                        <label for="terms" class="text-sm text-gray-400">
-                                            Я соглашаюсь с
-                                            <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">Условиями использования</a>
-                                            и
-                                            <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">Политикой конфиденциальности</a>
-                                        </label>
-                                    </div>
 
-                                    <!-- Прогресс бар (анимация) -->
-                                    <div class="relative h-2 rounded-full overflow-hidden bg-slate-800">
-                                        <div
-                                            class="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300"
-                                            :style="`width: ${progressValue}%`"
-                                        ></div>
-                                    </div>
+
+
 
                                     <!-- Кнопка отправки -->
                                     <button
@@ -501,33 +411,9 @@
                                     </button>
                                 </form>
 
-                                <!-- Разделитель -->
-                                <div class="relative my-8">
-                                    <div class="absolute inset-0 flex items-center">
-                                        <div class="w-full border-t border-white/10"></div>
-                                    </div>
-                                    <div class="relative flex justify-center text-sm">
-                                        <span class="px-4 bg-slate-900/80 text-gray-500">Или войдите через</span>
-                                    </div>
-                                </div>
 
-                                <!-- Социальные кнопки -->
-                                <div class="grid grid-cols-2 gap-4">
-                                    <button type="button"
-                                            class="group relative p-3 rounded-xl bg-slate-800/50 border border-white/10 hover:border-blue-500/50 transition-all">
-                                        <div class="flex items-center justify-center gap-3">
-                                            <i data-lucide="brand-google" class="w-5 h-5 text-red-400"></i>
-                                            <span class="text-gray-300 group-hover:text-white">Google</span>
-                                        </div>
-                                    </button>
-                                    <button type="button"
-                                            class="group relative p-3 rounded-xl bg-slate-800/50 border border-white/10 hover:border-blue-400/50 transition-all">
-                                        <div class="flex items-center justify-center gap-3">
-                                            <i data-lucide="brand-facebook" class="w-5 h-5 text-blue-400"></i>
-                                            <span class="text-gray-300 group-hover:text-white">Facebook</span>
-                                        </div>
-                                    </button>
-                                </div>
+
+
 
                                 <!-- Ссылка на вход -->
                                 <div class="mt-8 text-center">
@@ -543,14 +429,7 @@
                             </div>
                         </div>
 
-                        <!-- Дополнительная информация -->
-                        <div class="mt-6 text-center">
-                            <p class="text-sm text-gray-500">
-                                Нажимая "Создать аккаунт", вы соглашаетесь с нашей политикой безопасности.
-                                <br>
-                                Мы никогда не передаем ваши данные третьим лицам.
-                            </p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -573,18 +452,10 @@
                     <div class="flex flex-wrap gap-6 justify-center">
                         <a href="{{ url('/') }}" class="text-gray-400 hover:text-cyan-400 transition-colors">Главная</a>
                         <a href="{{ route('login') }}" class="text-gray-400 hover:text-blue-400 transition-colors">Вход</a>
-                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors">Помощь</a>
-                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors">Контакты</a>
+
                     </div>
 
-                    <!-- Информация о безопасности -->
-                    <div class="text-sm text-gray-500 text-center md:text-right">
-                        <div class="flex items-center gap-2 justify-center md:justify-end">
-                            <i data-lucide="shield-check" class="w-4 h-4 text-green-400"></i>
-                            <span>Защищено 256-bit SSL шифрованием</span>
-                        </div>
-                        <div class="mt-1">© 2025 CyberSafe Trainer. Все права защищены.</div>
-                    </div>
+
                 </div>
             </div>
         </footer>

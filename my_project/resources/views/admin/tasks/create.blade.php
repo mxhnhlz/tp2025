@@ -56,11 +56,7 @@
                         </select>
                     </div>
 
-                    <div>
-                        <label class="block mb-1 font-semibold text-gray-700">Баллы</label>
-                        <input type="number" name="points" value="{{ old('points') }}"
-                               class="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none transition-all">
-                    </div>
+
 
                     <div>
                         <label class="block mb-1 font-semibold text-gray-700">Порядок</label>

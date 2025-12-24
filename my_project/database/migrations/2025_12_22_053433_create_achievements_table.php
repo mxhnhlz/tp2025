@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('conditions')->nullable(); // Условия для получения
             $table->string('icon')->nullable();
             $table->timestamps();
+            $table->integer('xp_reward')->default(50);
         });
     }
 

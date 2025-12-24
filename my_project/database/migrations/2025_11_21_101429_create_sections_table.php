@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); //название раздела
+            $table->string('title'); // название раздела
             $table->text('description')->nullable();
             $table->timestamps();
             $table->string('color')->default('from-blue-500 to-cyan-500');
             $table->string('icon')->default('Lock');
             $table->boolean('is_locked')->default(false);
             $table->integer('order')->default(0);
-
 
         });
     }

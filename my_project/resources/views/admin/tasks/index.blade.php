@@ -24,8 +24,9 @@
                     {{ ucfirst($task->difficulty) }}
                 </span>
                         <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">
-                    Баллы: {{ $task->points }}
-                </span>
+    Баллы: {{ $task->total_points }}
+</span>
+
                     </div>
                 </div>
 
